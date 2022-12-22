@@ -43,7 +43,7 @@ class BoxTest {
 
     @Test
     void howNumberOfVerticesToCube() {
-        Box box =new Box(8, 6);
+        Box box = new Box(8, 6);
         int number = box.getNumberOfVertices();
         assertThat(number).isGreaterThan(7)
                 .isLessThan(9);
