@@ -11,6 +11,7 @@ import java.util.Iterator;
 import java.util.stream.IntStream;
 
 class SimpleArrayListTest {
+
     private SimpleList<Integer> list;
 
     @BeforeEach
