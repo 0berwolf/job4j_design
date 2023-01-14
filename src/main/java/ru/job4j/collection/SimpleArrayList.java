@@ -33,9 +33,6 @@ public class SimpleArrayList<T> implements SimpleList<T> {
     public T set(int index, T newValue) {
         T stValue = get(index);
         container[index] = newValue;
-        if (index < 0 || index >= container.length) {
-            throw new IndexOutOfBoundsException();
-        }
         return stValue;
     }
 
@@ -47,18 +44,12 @@ public class SimpleArrayList<T> implements SimpleList<T> {
         }
         container[--size] = null;
         modCount++;
-        if (index < 0 || index >= container.length) {
-            throw new IndexOutOfBoundsException();
-        }
         return value;
     }
 
     @Override
     public T get(int index) {
         Objects.checkIndex(index, size);
-        if (index < 0 || index >= container.length) {
-            throw new IndexOutOfBoundsException();
-        }
         return container[index];
     }
 
