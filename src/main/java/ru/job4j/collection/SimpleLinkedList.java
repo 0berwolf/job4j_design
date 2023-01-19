@@ -28,8 +28,7 @@ public class SimpleLinkedList<E> implements LinkedList<E> {
     @Override
     public E get(int index) {
         Objects.checkIndex(index, size);
-        Node<E> result = startGet(index, 0, head);
-        return result.item;
+        return startGet(index, 0, head).item;
     }
 
     @Override
