@@ -28,7 +28,14 @@ public class SimpleLinkedList<E> implements LinkedList<E> {
     @Override
     public E get(int index) {
         Objects.checkIndex(index, size);
-        return startGet(index, 0, head).item;
+        Node<E> elem = head;
+        if (index < size) {
+            elem = head;
+            for (int i = 0; i < index; i++) {
+                elem = elem.next;
+            }
+        }
+        return elem.item;
     }
 
     @Override
@@ -56,12 +63,12 @@ public class SimpleLinkedList<E> implements LinkedList<E> {
         };
     }
 
-    private Node<E> startGet(int index, int countStart, Node<E> accumulator) {
+    /*private Node<E> startGet(int index, int countStart, Node<E> accumulator) {
         if (index > countStart) {
             return startGet(index, countStart + 1, accumulator.next);
         }
         return accumulator;
-    }
+    }*/
 
     private static class Node<E> {
         E item;
