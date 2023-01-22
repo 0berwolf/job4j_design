@@ -9,17 +9,13 @@ public class SimpleLinkedList<E> implements LinkedList<E> {
     private int size = 0;
     private int modCount = 0;
     private Node<E> head;
-    private Node<E> last;
 
     @Override
     public void add(E value) {
-        final Node<E> l = last;
-        final Node<E> newNode = new Node<E>(l, value, null);
-        last = newNode;
-        if (l == null) {
+        final Node<E> h = head;
+        final Node<E> newNode = new Node<E>(value, null);
+        if (h == null) {
             head = newNode;
-        } else {
-            l.next = newNode;
         }
         size++;
         modCount++;
@@ -29,12 +25,9 @@ public class SimpleLinkedList<E> implements LinkedList<E> {
     public E get(int index) {
         Objects.checkIndex(index, size);
         Node<E> elem = head;
-        if (index < size) {
-            elem = head;
-            for (int i = 0; i < index; i++) {
-                elem = elem.next;
+        for (int i = 0; i < index; i++) {
+            elem = elem.next;
             }
-        }
         return elem.item;
     }
 
@@ -42,7 +35,7 @@ public class SimpleLinkedList<E> implements LinkedList<E> {
     public Iterator<E> iterator() {
         return new Iterator<E>() {
             Node<E> node = head;
-            final int expectedModCount = modCount;
+            private int expectedModCount = modCount;
             @Override
             public boolean hasNext() {
                 if (expectedModCount != modCount) {
@@ -63,22 +56,14 @@ public class SimpleLinkedList<E> implements LinkedList<E> {
         };
     }
 
-    /*private Node<E> startGet(int index, int countStart, Node<E> accumulator) {
-        if (index > countStart) {
-            return startGet(index, countStart + 1, accumulator.next);
-        }
-        return accumulator;
-    }*/
 
     private static class Node<E> {
         E item;
         Node<E> next;
-        Node<E> prev;
 
-        Node(Node<E> prev, E element, Node<E> next) {
+        Node(E element, Node<E> next) {
             this.item = element;
             this.next = next;
-            this.prev = prev;
         }
     }
 }
