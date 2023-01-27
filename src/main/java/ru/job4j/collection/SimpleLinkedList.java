@@ -13,7 +13,6 @@ public class SimpleLinkedList<E> implements LinkedList<E> {
     @Override
     public void add(E value) {
         Node<E> newNode = new Node<E>(value, null);
-        newNode.next = null;
         if (head == null) {
             head = newNode;
         } else {
