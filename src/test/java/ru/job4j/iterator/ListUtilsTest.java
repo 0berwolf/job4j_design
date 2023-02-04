@@ -7,7 +7,6 @@ import org.junit.jupiter.api.Test;
 import java.util.*;
 
 class ListUtilsTest {
-
     private List<Integer> input;
 
     @BeforeEach
