@@ -3,6 +3,7 @@ package ru.job4j.map;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 public class User {
 
@@ -32,5 +33,10 @@ public class User {
         System.out.printf("user1 - hash code: %s, hash: %s, bucket: %s", hashCode1, hash1, bucket1);
         System.out.println();
         System.out.printf("user2 - hash code: %s, hash: %s, bucket: %s", hashCode2, hash2, bucket2);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, children, birthday);
     }
 }
