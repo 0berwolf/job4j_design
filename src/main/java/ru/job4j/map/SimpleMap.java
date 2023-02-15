@@ -6,6 +6,7 @@ import java.util.NoSuchElementException;
 import java.util.Objects;
 
 public class SimpleMap<K, V> implements Map<K, V> {
+
     private static final float LOAD_FACTOR = 0.75f;
     private int capacity = 8;
     private int count = 0;
