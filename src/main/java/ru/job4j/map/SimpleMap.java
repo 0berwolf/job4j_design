@@ -29,7 +29,8 @@ public class SimpleMap<K, V> implements Map<K, V> {
 
     private int hash(K key) {
         int hashCode = key == null ? 0 : key.hashCode();
-        return hashCode ^ (hashCode >>> 16);
+        hashCode = hashCode ^ (hashCode >>> 16);
+        return hashCode;
     }
 
     private int indexFor(int hash) {
@@ -38,14 +39,12 @@ public class SimpleMap<K, V> implements Map<K, V> {
 
     private void expand() {
         if (count >= table.length * LOAD_FACTOR) {
-            capacity = capacity * 2;
+            capacity *= 2;
             MapEntry<K, V>[] desc = new MapEntry[capacity];
             for (MapEntry<K, V> newMapEntry : table) {
                 if (newMapEntry != null) {
                     int index = indexFor(hash(newMapEntry.key));
-                    if (desc[index] == null) {
                         desc[index] = newMapEntry;
-                    }
                 }
             }
             table = desc;
@@ -57,7 +56,7 @@ public class SimpleMap<K, V> implements Map<K, V> {
         V value = null;
         int index = indexFor(hash(key));
         if (table[index] != null) {
-            if (hash(table[index].key) == hash(key) & Objects.equals(table[index].key, key)) {
+            if (hash(table[index].key) == hash(key) && Objects.equals(table[index].key, key)) {
                 value = table[index].value;
             }
         }
