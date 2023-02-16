@@ -53,11 +53,8 @@ public class SimpleMap<K, V> implements Map<K, V> {
     public V get(K key) {
         V value = null;
         int index = xHash(key);
-        if (table[index] != null) {
-            if (Objects.hashCode(key) == Objects.hashCode(table[index].key)
-                    && Objects.equals(key, table[index].key)) {
+        if (checkCondition(key, index)) {
                 value = table[index].value;
-            }
         }
         return value;
     }
@@ -66,8 +63,7 @@ public class SimpleMap<K, V> implements Map<K, V> {
     public boolean remove(K key) {
         boolean result = false;
         int index = xHash(key);
-        if (table[index] != null && Objects.hashCode(key) == Objects.hashCode(table[index].key)
-                && Objects.equals(key, table[index].key)) {
+        if (checkCondition(key, index)) {
             table[index] = null;
             result = true;
             count--;
@@ -101,6 +97,15 @@ public class SimpleMap<K, V> implements Map<K, V> {
                 return table[pointer++].key;
             }
         };
+    }
+
+    private boolean checkCondition(K key, int index) {
+       boolean result = false;
+        if (table[index] != null && Objects.hashCode(key) == Objects.hashCode(table[index].key)
+                && Objects.equals(key, table[index].key)) {
+            result = true;
+        }
+        return result;
     }
 
     private int xHash(K key) {
