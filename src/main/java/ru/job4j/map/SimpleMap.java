@@ -17,7 +17,7 @@ public class SimpleMap<K, V> implements Map<K, V> {
     public boolean put(K key, V value) {
         expand();
         boolean result = false;
-        int index = indexFor(hash(key));
+        int index = xHash(key);
         if (table[index] == null) {
             table[index] = new MapEntry<>(key, value);
             result = true;
@@ -27,14 +27,12 @@ public class SimpleMap<K, V> implements Map<K, V> {
         return result;
     }
 
-    private int hash(K key) {
-        int hashCode = key == null ? 0 : key.hashCode();
-        hashCode = hashCode ^ (hashCode >>> 16);
-        return hashCode;
+    private int hash(int hashCode) {
+       return hashCode ^ (hashCode >>> 16);
     }
 
     private int indexFor(int hash) {
-        return hash & (capacity - 1);
+       return hash & (capacity - 1);
     }
 
     private void expand() {
@@ -43,7 +41,7 @@ public class SimpleMap<K, V> implements Map<K, V> {
             MapEntry<K, V>[] desc = new MapEntry[capacity];
             for (MapEntry<K, V> newMapEntry : table) {
                 if (newMapEntry != null) {
-                    int index = indexFor(hash(newMapEntry.key));
+                    int index = xHash(newMapEntry.key);
                         desc[index] = newMapEntry;
                 }
             }
@@ -54,9 +52,10 @@ public class SimpleMap<K, V> implements Map<K, V> {
     @Override
     public V get(K key) {
         V value = null;
-        int index = indexFor(hash(key));
+        int index = xHash(key);
         if (table[index] != null) {
-            if (hash(table[index].key) == hash(key) && Objects.equals(table[index].key, key)) {
+            if (Objects.hashCode(key) == Objects.hashCode(table[index].key)
+                    && Objects.equals(key, table[index].key)) {
                 value = table[index].value;
             }
         }
@@ -66,8 +65,9 @@ public class SimpleMap<K, V> implements Map<K, V> {
     @Override
     public boolean remove(K key) {
         boolean result = false;
-        int index = indexFor(hash(key));
-        if (table[index] != null && hash(table[index].key) == hash(key) && Objects.equals(table[index].key, key)) {
+        int index = xHash(key);
+        if (table[index] != null && Objects.hashCode(key) == Objects.hashCode(table[index].key)
+                && Objects.equals(key, table[index].key)) {
             table[index] = null;
             result = true;
             count--;
@@ -101,6 +101,10 @@ public class SimpleMap<K, V> implements Map<K, V> {
                 return table[pointer++].key;
             }
         };
+    }
+
+    private int xHash(K key) {
+       return key == null ? 0 : indexFor(hash(key.hashCode()));
     }
 
     private static class MapEntry<K, V> {
