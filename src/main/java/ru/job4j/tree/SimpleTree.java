@@ -3,7 +3,7 @@ package ru.job4j.tree;
 import java.util.*;
 
 public class SimpleTree<E> implements Tree<E> {
-    private final Node <E> root;
+    private final Node<E> root;
 
     public SimpleTree(final E root) {
         this.root = new Node<>(root);

@@ -4,7 +4,6 @@ import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class SimpleTreeTest {
-
     @Test
     void when6ElFindLastThen6() {
         Tree<Integer> tree = new SimpleTree<>(1);
