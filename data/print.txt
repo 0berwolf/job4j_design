@@ -1,0 +1,2 @@
+Из printStream в FileOutputStream
+new String
