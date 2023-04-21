@@ -22,7 +22,7 @@ public class Config {
                 if (!(line.startsWith("#") || line.isEmpty())) {
                     String[] splitLine = line.split("=", 2);
                     if (splitLine[0].isEmpty() || splitLine.length < 2 || splitLine[1].isEmpty()) {
-                        throw new IllegalArgumentException(String.format("Line %s must be of the form: key=value"));
+                        throw new IllegalArgumentException(String.format("Line %s must be of the form: key=value", line));
                     }
                         values.put(splitLine[0], splitLine[1]);
                     }
