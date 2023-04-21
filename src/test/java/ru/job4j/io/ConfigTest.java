@@ -23,8 +23,24 @@ class ConfigTest {
     }
 
     @Test
-    void throwNewIllegalException2() {
+    void throwNewIllegalException() {
         String path = "./data/throw_exception.properties";
+        Config config = new Config(path);
+        assertThatThrownBy(config::load)
+                .isInstanceOf(IllegalArgumentException.class);
+    }
+
+    @Test
+    void throwNewIllegalException2() {
+        String path = "data/throw_exception3.properties";
+        Config config = new Config(path);
+        assertThatThrownBy(config::load)
+                .isInstanceOf(IllegalArgumentException.class);
+    }
+
+    @Test
+    void throwNewIllegalException3() {
+        String path = "data/throw_exception3.properties";
         Config config = new Config(path);
         assertThatThrownBy(config::load)
                 .isInstanceOf(IllegalArgumentException.class);
