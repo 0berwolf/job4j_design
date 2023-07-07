@@ -13,9 +13,7 @@ public class Dir {
         }
         System.out.println(String.format("Disc size : %s gb", file.getTotalSpace() / 1073741824));
         for (File subfile : file.listFiles()) {
-            System.out.print(String.format(subfile.getName()));
-            System.out.print(String.format(", size : %s", subfile.length() / 1024));
-            System.out.println(" kb");
+            System.out.print(String.format("%s, size : %s kb %n", subfile.getName(), subfile.length() / 1024));
         }
     }
 }
