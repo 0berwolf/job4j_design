@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.function.Predicate;
 
 public class SearchFiles extends SimpleFileVisitor<Path> {
+
     private final List<Path> result = new ArrayList<>();
     private final Predicate<Path> condition;
 
