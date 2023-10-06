@@ -6,8 +6,9 @@ import java.util.List;
 import java.util.function.Predicate;
 
 public class Search {
+
     public static void main(String[] args) throws IOException {
-        verification(args);
+        validation(args);
         Path start = Path.of(args[0]);
         search(start, p -> p.toFile().getName().endsWith(args[1])).forEach(System.out::println);
     }
@@ -18,7 +19,7 @@ public class Search {
         return searcher.getPaths();
     }
 
-    private static void verification(String[] args) {
+    private static void validation(String[] args) {
         if (args.length != 2) {
             throw new IllegalArgumentException("Использовать 2 параметра: ROOT_FOLDER FILE_EXTENSION");
         }
